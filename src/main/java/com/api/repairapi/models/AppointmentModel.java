@@ -24,4 +24,11 @@ public class AppointmentModel {
     @JoinColumn(name = "client_id")
     private ClientModel client;
 
+    @ManyToOne
+    @JoinColumn(name ="device_id")
+    private DeviceModel device;
+
+    @Column
+    private String description;
+
 }

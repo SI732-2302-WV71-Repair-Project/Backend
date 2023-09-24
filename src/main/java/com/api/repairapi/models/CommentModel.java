@@ -26,4 +26,10 @@ public class CommentModel {
     @ManyToOne
     @JoinColumn(name ="client_id")
     private ClientModel client;
+
+    @ManyToOne
+    @JoinColumn(name = "technician_id")
+    private TechnicianModel technician;
+
+
 }

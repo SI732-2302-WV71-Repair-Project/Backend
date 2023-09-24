@@ -15,4 +15,11 @@ public class ClientModel {
     @OneToOne
     @JoinColumn(name = "user_id")
     private UserModel user;
+
+    @ManyToOne
+    @JoinColumn(name = "device_id")
+    private DeviceModel device;
+
+    @Column
+    private String plan;
 }

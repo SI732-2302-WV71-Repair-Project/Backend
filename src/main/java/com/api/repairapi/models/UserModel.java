@@ -42,4 +42,7 @@ public class UserModel {
     @Column
     private String address;
 
+    @Column
+    private String district;
+
 }

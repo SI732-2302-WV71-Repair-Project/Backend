@@ -24,7 +24,7 @@ public class SpareRequestModel {
     @ManyToOne
     private TechnicianModel technician;
 
-    @JoinColumn(name = "appintment_id")
+    @JoinColumn(name = "appointment_id")
     @ManyToOne
     private AppointmentModel appointment;
 }
