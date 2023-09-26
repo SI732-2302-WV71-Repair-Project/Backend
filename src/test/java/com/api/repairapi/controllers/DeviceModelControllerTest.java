@@ -110,7 +110,7 @@ public class DeviceModelControllerTest {
 
         mockMvc.perform(delete("/device-model/{id}", deviceModelId)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent()); // Cambia isOk() por isNoContent()
 
         verify(deviceModelService, times(1)).deleteDeviceModel(deviceModelId);
     }
