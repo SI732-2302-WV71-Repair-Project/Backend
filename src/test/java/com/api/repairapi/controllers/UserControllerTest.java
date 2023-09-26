@@ -18,6 +18,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class UserControllerTest {
 
@@ -48,9 +50,96 @@ public class UserControllerTest {
 
         verify(userService, times(1)).getUsers();
     }
+    @Test
+    public void testSaveUser() throws Exception {
+        UserModel user = new UserModel();
+        user.setId(1L);
+
+        // Simular la respuesta del servicio
+        when(userService.saveUser(any(UserModel.class))).thenReturn(user);
+
+        mockMvc.perform(post("/users")
+                        .content(asJsonString(user))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(user.getId()));
+
+        verify(userService, times(1)).saveUser(any(UserModel.class));
+    }
 
     @Test
-    public void testSaveUser(){
+    public void testGetUserById() throws Exception {
+        Long userId = 1L;
+        UserModel user = new UserModel();
+        user.setId(userId);
 
+        // Simular la respuesta del servicio
+        when(userService.getUserById(userId)).thenReturn(Optional.of(user));
+
+        mockMvc.perform(get("/users/{id}", userId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(user.getId()));
+
+        verify(userService, times(1)).getUserById(userId);
+    }
+
+    @Test
+    public void testUpdateUserById() throws Exception {
+        Long userId = 1L;
+        UserModel user = new UserModel();
+        user.setId(userId);
+
+        // Simular la respuesta del servicio
+        when(userService.updateById(any(UserModel.class), eq(userId))).thenReturn(user);
+
+        mockMvc.perform(put("/users/{id}", userId)
+                        .content(asJsonString(user))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(user.getId()));
+
+        verify(userService, times(1)).updateById(any(UserModel.class), eq(userId));
+    }
+    @Test
+    public void testGetUserByEmailandPasswords() throws Exception {
+        UserModel user = new UserModel();
+        user.setEmail("example@example.com");
+        user.setPassword("password123");
+
+        // Simular la respuesta del servicio
+        when(userService.getUserByEmailandPasswords(user.getEmail(), user.getPassword())).thenReturn(Optional.of(user));
+
+        mockMvc.perform(post("/users/login")
+                        .content(asJsonString(user))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.email").value(user.getEmail()))
+                .andExpect(jsonPath("$.password").value(user.getPassword()));
+
+        verify(userService, times(1)).getUserByEmailandPasswords(user.getEmail(), user.getPassword());
+    }
+    @Test
+    public void testDeleteUserById() throws Exception {
+        Long userId = 1L;
+
+        mockMvc.perform(delete("/users/{id}", userId)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(userService, times(1)).deleteUserById(userId);
+    }
+
+    // Utilidad para convertir objetos a JSON
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
