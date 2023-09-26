@@ -19,6 +19,7 @@ public class DeviceModel {
 
     @ManyToOne
     @JoinColumn(name ="device_model_id")
-    private DeviceModel deviceModel;
+    private DeviceModelModel device;
+
 
 }

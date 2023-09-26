@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -16,7 +17,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ArrayList<UserModel> getUsers(){
+    public List<UserModel> getUsers(){
         return this.userService.getUsers();
     }
 
@@ -33,6 +34,11 @@ public class UserController {
     @PutMapping(path = "/{id}")
     public UserModel updateUserById(@RequestBody UserModel request, @PathVariable("id") Long id){
         return this.userService.updateById(request, id);
+    }
+
+    @PostMapping(path = "/login")
+    public Optional<UserModel> getUserByEmailandPasswords(@RequestBody UserModel user){
+        return this.userService.getUserByEmailandPasswords(user.getEmail(), user.getPassword());
     }
 
     @DeleteMapping(path = "/{id}")

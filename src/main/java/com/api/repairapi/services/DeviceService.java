@@ -30,7 +30,7 @@ public class DeviceService {
         DeviceModel device = this.deviceRepository.findById(id).get();
 
         device.setName(request.getName());
-        device.setDeviceModel(request.getDeviceModel());
+        device.setDevice(request.getDevice());
 
         return this.deviceRepository.save(device);
     }

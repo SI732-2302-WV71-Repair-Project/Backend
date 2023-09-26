@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,8 +16,8 @@ public class UserService{
     @Autowired
     IUserRepository userRepository;
 
-    public ArrayList<UserModel> getUsers(){
-        return (ArrayList<UserModel>) userRepository.findAll();
+    public List<UserModel> getUsers(){
+        return userRepository.findAll();
     }
 
     public UserModel saveUser(UserModel user){
@@ -48,7 +49,17 @@ public class UserService{
             userRepository.deleteById(id);
         }
         catch (Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("Error al eliminar el usuario");
+        }
+    }
+
+    public Optional<UserModel> getUserByEmailandPasswords(String email, String password){
+        try {
+            return this.userRepository.findByEmailAndPassword(email, password);
+        }
+        catch (Exception e){
+            System.out.println("No se encontró el usuario");
+            return null;
         }
     }
 }
