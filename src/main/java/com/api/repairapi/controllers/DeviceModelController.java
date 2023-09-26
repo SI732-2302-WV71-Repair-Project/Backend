@@ -3,6 +3,8 @@ package com.api.repairapi.controllers;
 import com.api.repairapi.models.DeviceModelModel;
 import com.api.repairapi.services.DeviceModelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -37,12 +39,12 @@ public class DeviceModelController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deleteDeviceModel(@PathVariable Long id){
+    public ResponseEntity<Void> deleteDeviceModel(@PathVariable Long id) {
         try {
             this.deviceModelService.deleteDeviceModel(id);
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
+            return ResponseEntity.noContent().build(); // Eliminación exitosa, devuelve código 204 (No Content)
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Error en el servidor, devuelve código 500 (Internal Server Error)
         }
     }
 }
