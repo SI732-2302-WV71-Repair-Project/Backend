@@ -10,7 +10,6 @@ RUN mvn clean package -DskipTests
 # Fase de ejecución
 FROM openjdk:17-jdk-alpine
 
-EXPOSE 8080
 
 ENV SPRING_DATASOURCE_URL=jdbc:postgresql://silly.db.elephantsql.com:5432/urnkcqdx
 ENV SPRING_DATASOURCE_USERNAME=urnkcqdx
