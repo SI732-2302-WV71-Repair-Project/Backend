@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @PostMapping(path = "/login")
-    public Optional<UserModel> getUserByEmailandPasswords(@RequestBody UserModel user){
+    public Optional<UserModel> getUserByEmailAndPasswords(@RequestBody UserModel user){
         return this.userService.getUserByEmailandPasswords(user.getEmail(), user.getPassword());
     }
 

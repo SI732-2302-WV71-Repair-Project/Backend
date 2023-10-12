@@ -15,7 +15,8 @@ public class TechnicianModel {
     @Column
     private String name;
 
-    @Column
-    private String speciality;
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private UserModel user;
 
 }

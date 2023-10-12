@@ -31,7 +31,10 @@ public class DeviceModelService {
 
         deviceModelModel.setBrand(request.getBrand());
         deviceModelModel.setModel(request.getModel());
-        deviceModelModel.setQueryCost(request.getQueryCost());
+        deviceModelModel.setModel_image(request.getModel_image());
+        deviceModelModel.setClient(request.getClient());
+        deviceModelModel.setProblem(request.getProblem());
+        deviceModelModel.setType(request.getType());
 
         return this.deviceModelRepository.save(deviceModelModel);
     }

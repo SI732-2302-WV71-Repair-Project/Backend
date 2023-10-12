@@ -34,6 +34,7 @@ public class CommentService {
         commentModel.setPublishDate(request.getPublishDate());
         commentModel.setRating(request.getRating());
         commentModel.setClient(request.getClient());
+        commentModel.setTechnician(request.getTechnician());
 
         return this.commentRepository.save(commentModel);
     }

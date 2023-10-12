@@ -30,6 +30,7 @@ public class ClientService {
         ClientModel client = this.clientRepository.findById(id).get();
 
         client.setUser(request.getUser());
+        client.setPlan(request.getPlan());
 
         return  this.clientRepository.save(client);
     }

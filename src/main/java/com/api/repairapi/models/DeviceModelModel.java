@@ -19,5 +19,15 @@ public class DeviceModelModel {
     private String model;
 
     @Column
-    private Long queryCost;
+    private String model_image;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private ClientModel client;
+
+    @Column
+    private String problem;
+
+    @Column
+    private String type;
 }

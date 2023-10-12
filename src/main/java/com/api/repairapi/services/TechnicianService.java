@@ -29,7 +29,8 @@ public class TechnicianService {
     public TechnicianModel updateTechnician(TechnicianModel request, Long id){
         TechnicianModel technicianModel = this.technicianRepository.findById(id).get();
 
-        technicianModel.setId(request.getId());
+        technicianModel.setName(request.getName());
+        technicianModel.setUser(request.getUser());
 
         return this.technicianRepository.save(technicianModel);
     }

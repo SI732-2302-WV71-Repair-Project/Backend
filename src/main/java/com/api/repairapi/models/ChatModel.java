@@ -5,30 +5,27 @@ import lombok.Data;
 
 import java.util.Date;
 
-@Entity
-@Table(name = "appointment")
 @Data
-public class AppointmentModel {
+@Entity
+@Table(name = "chat")
+public class ChatModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
-    private Date schedule_date;
-
-    @Column
-    private char state;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
     private ClientModel client;
 
     @ManyToOne
-    @JoinColumn(name ="device_id")
-    private DeviceModel device;
+    @JoinColumn(name = "technician_id")
+    private TechnicianModel technician;
 
     @Column
-    private String description;
+    private String message;
+
+    @Column
+    private Date date;
 
 }
